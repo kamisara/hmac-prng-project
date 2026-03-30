@@ -1,34 +1,48 @@
 # HMAC-DRBG Pseudorandom Number Generator
 
-Implementation of HMAC-based Deterministic Random Bit Generator (HMAC-DRBG) 
-according to NIST SP 800-90A standard.
+Implementation of a **HMAC-based Deterministic Random Bit Generator (HMAC-DRBG)** according to the NIST SP 800-90A standard. This project was developed as part of a cryptography course module covering pseudorandom number generators based on authentication codes (HMAC).
 
-## Features
+##  Project Context
 
-- ✅ NIST SP 800-90A compliant HMAC-DRBG implementation
-- ✅ SHA-256 based security
-- ✅ Reseeding capability
-- ✅ Pythonic API (similar to `random` module)
-- ✅ Statistical tests included
-- ✅ No external dependencies (uses only Python standard library)
+**Module:** Cryptography & Security  
+**Subject:** Sujet 3 - Générateur de nombre pseudo aléatoire à base des codes d'authentification HMAC  
+**Standard:** NIST SP 800-90A - Recommendation for Random Number Generation Using Deterministic Random Bit Generators
 
-## Quick Start
+---
 
-```python
-from hmac_prng import HMAC_DRBG
+##  Features
 
-# Create generator (auto-seeded from system entropy)
-prng = HMAC_DRBG()
+-  **NIST SP 800-90A compliant** HMAC-DRBG implementation
+-  **SHA-256** based cryptographic security (256-bit security strength)
+-  **Deterministic output** with seed control for reproducibility
+-  **Automatic reseeding** with system entropy (`os.urandom`)
+-  **Pythonic API** similar to standard `random` module
+-  **Comprehensive unit tests** with statistical validation
+-  **Zero external dependencies** - uses only Python standard library
 
-# Generate random bytes
-random_bytes = prng.generate(32)
+---
 
-# Generate random float [0.0, 1.0)
-random_float = prng.random()
+## Algorithm Overview
 
-# Generate random integer [1, 100]
-random_int = prng.randint(1, 100)
+HMAC-DRBG uses the HMAC (Hash-based Message Authentication Code) construction to generate pseudorandom bits. The algorithm maintains two internal state values:
 
-# Shuffle a list
-items = [1, 2, 3, 4, 5]
-prng.shuffle(items)
+- **K**: Key for HMAC operations (256 bits)
+- **V**: Value for generating output (256 bits)
+
+### Core Operations
+
+| Operation | Description |
+|-----------|-------------|
+| `Instantiate` | Initialize K and V with seed material |
+| `Update` | Update internal state using HMAC |
+| `Generate` | Produce pseudorandom output blocks |
+| `Reseed` | Inject fresh entropy into the state |
+
+---
+
+## Installation & Usage
+
+### Clone the repository
+```bash
+git clone https://github.com/kamisara/hmac-prng-project.git
+cd hmac-prng-project
